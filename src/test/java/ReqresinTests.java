@@ -20,8 +20,7 @@ public class ReqresinTests {
     void successfulLogin() {
         given()
                 .contentType(JSON)
-                .body("{\"email\": \"eve.holt@reqres.in\",\n" +
-                        "    \"password\": \"cityslicka\"}")
+                .body("{\"email\": \"eve.holt@reqres.in\", \"password\": \"cityslicka\"}")
                 .when()
                 .post("https://reqres.in/api/login")
                 .then()
