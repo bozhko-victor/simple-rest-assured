@@ -1,46 +1,62 @@
+import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
+import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class ReqresinTests {
 
-
-    //        request: https://reqres.in/api/login
-//        data: {
-//            "email": "eve.holt@reqres.in",
-//                    "password": "cityslicka"
-//        }
-//        response: {
-//            "token": "QpwL5tke4Pnpja7X4"
-//        }
-//        status: 200
     @Test
-    void successfulLogin() {
-        given()
-                .contentType(JSON)
-                .body("{\"email\": \"eve.holt@reqres.in\", \"password\": \"cityslicka\"}")
-                .when()
-                .post("https://reqres.in/api/login")
+    void checkNameSingleUser() {
+        get("https://reqres.in/api/users/2")
                 .then()
                 .statusCode(200)
-                .body("token", is("QpwL5tke4Pnpja7X4"));
+                .body("data.first_name", is("Janet"));
 
     }
 
     @Test
-    void negativeLogin() {
-//        System.out.println( //используем закомиченные строки для получения названия и значения ошибки из логов
+    void checkSizeListRessourse() {
+        get("https://reqres.in/api/unknown")
+                        .then()
+                        .statusCode(200)
+                        .body("per_page", is(6));
+
+    }
+
+    @Test
+    void checkListRessourse() {
+        Response  response =
+        get("https://reqres.in/api/unknown")
+                .then()
+                .extract().response();
+
+        assertThat(response.path("data").toString())
+                .contains("fuchsia rose");
+
+    }
+
+    @Test
+    void checkListRessourseWithIndex() {
+        get("https://reqres.in/api/unknown")
+                .then()
+                .statusCode(200)
+                .body("data[2].name", is("true red"));  //"путь для бедных" - до создания объекта
+
+    }
+
+    @Test
+    void checkCreatedAt() {
         given()
                 .contentType(JSON)
-                .body("{\"email\": \"eve.holt@reqres.in\"}")
+                .body("{ \"name\": \"morpheus\", \"job\": \"leader\" }")
                 .when()
-                .post("https://reqres.in/api/login")
+                .post("https://reqres.in/api/users")
                 .then()
-                .statusCode(400)
-//                .extract().asString());
-                .body("error", is("Missing password")); //missing - потерянный
-
+                .statusCode(201)
+                .body("job", is("leader"));
     }
 }
