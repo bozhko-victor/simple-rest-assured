@@ -6,16 +6,6 @@ import static org.hamcrest.core.Is.is;
 
 public class ReqresinTests {
 
-
-    //        request: https://reqres.in/api/login
-//        data: {
-//            "email": "eve.holt@reqres.in",
-//                    "password": "cityslicka"
-//        }
-//        response: {
-//            "token": "QpwL5tke4Pnpja7X4"
-//        }
-//        status: 200
     @Test
     void successfulLogin() {
         given()
