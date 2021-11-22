@@ -9,3 +9,7 @@ https://jsonlint.com/ - распарсить json
 https://reqres.in/ - брать примеры для тренировки
 
 https://github.com/svasenkov/some_tests 
+
+Добавляем Allure listener
+
+![img.png](img.png)
