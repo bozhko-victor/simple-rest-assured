@@ -1,7 +1,7 @@
-### Добавляем Allure listener:
+### Добавляем в Allure отчет "индивидуальности из шаблона"":
 
 
-1. Прописываем зависимости в файл build.gradle
-2. В запрос теста включаем `````.filter(new AllureRestAssured())`````
+1. Создаем папку filters с файлом CustomLogFilter
+2. В директории resourses  создаем папку tpl и помещаем в нее 2 файла-шаблона request.ftl и response.ftl
 
-![img.png](img.png)
+![img_1.png](img_1.png)

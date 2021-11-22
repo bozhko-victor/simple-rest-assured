@@ -1,3 +1,6 @@
+package tests;
+
+import filters.CustomLogFilter;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
@@ -5,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static filters.CustomLogFilter.customLogFilter;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
@@ -36,7 +40,7 @@ public class BookStoreTests {
                 .get("https://demoqa.com/BookStore/v1/Books")
                 .then()
                 .log().body()
-                .body("books",hasSize(greaterThan(0))); //asdsad#frew_DFS2
+                .body("books",hasSize(greaterThan(0)));
     }
 
     @Test
@@ -51,6 +55,28 @@ public class BookStoreTests {
 
         given()
                 .filter(new AllureRestAssured())
+                .contentType("application/json")
+                .accept("application/json")
+                .body(data)
+                .when()
+                .log().body()
+                .log().uri()
+                .post("https://demoqa.com/Account/v1/GenerateToken")
+                .then()
+                .log().body()
+                .body("status", is("Success"))
+                .body("result", is("User authorized successfully."));
+    }
+
+    @Test
+    void authorizeWithTemplatesTest() {
+        String  data = "{\n" +
+                "  \"userName\": \"alex\"," +
+                "  \"password\": \"asdsad#frew_DFS2\"" +
+                "}";
+
+        given()
+                .filter(customLogFilter().withCustomTemplates())
                 .contentType("application/json")
                 .accept("application/json")
                 .body(data)
