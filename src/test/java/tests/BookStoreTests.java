@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static filters.CustomLogFilter.customLogFilter;
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.*;
 
 public class BookStoreTests {
@@ -82,6 +83,29 @@ public class BookStoreTests {
                 .post("https://demoqa.com/Account/v1/GenerateToken")
                 .then()
                 .log().body()
+                .body("status", is("Success"))
+                .body("result", is("User authorized successfully."));
+    }
+
+    @Test
+    void authorizeWithSchemaTest() {
+        String  data = "{\n" +
+                "  \"userName\": \"alex\"," +
+                "  \"password\": \"asdsad#frew_DFS2\"" +
+                "}";
+
+        given()
+                .filter(customLogFilter().withCustomTemplates())
+                .contentType("application/json")
+                .accept("application/json")
+                .body(data)
+                .when()
+                .log().body()
+                .log().uri()
+                .post("https://demoqa.com/Account/v1/GenerateToken")
+                .then()
+                .log().body()
+                .body(matchesJsonSchemaInClasspath("schemas/GenerateTokenSchema.json"))
                 .body("status", is("Success"))
                 .body("result", is("User authorized successfully."));
     }

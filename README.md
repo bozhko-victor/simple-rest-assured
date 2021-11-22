@@ -1,7 +1,7 @@
-### Добавляем в Allure отчет "индивидуальности из шаблона":
+### Добавляем проверку на соответствие JSON схеме:
 
+1. Создаем в директории resorses папку schemas и добавляем в нее JSON файл
+2. Добавляем в запрос проверку c указанием пути к файлу ``` .body(matchesJsonSchemaInClasspath("schemas/GenerateTokenSchema.json"))```
 
-1. Создаем папку filters с файлом CustomLogFilter
-2. В директории resourses  создаем папку tpl и помещаем в нее 2 файла-шаблона request.ftl и response.ftl
-
-![img_1.png](img_1.png)
+Вспомогательный ресурс (преобразуем 	
+Response body из swagger в JSON) http://json-schema.org
