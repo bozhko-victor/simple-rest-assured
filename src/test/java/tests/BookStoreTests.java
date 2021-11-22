@@ -1,12 +1,7 @@
 package tests;
 
-import filters.CustomLogFilter;
 import io.qameta.allure.restassured.AllureRestAssured;
-import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static filters.CustomLogFilter.customLogFilter;
 import static io.restassured.RestAssured.given;
@@ -17,6 +12,7 @@ public class BookStoreTests {
     @Test
     void noLogsTest() {
         given()
+                .filter(customLogFilter().withCustomTemplates())
                 .get("https://demoqa.com/BookStore/v1/Books")
                 .then()
                 .body("books",hasSize(greaterThan(0)));
