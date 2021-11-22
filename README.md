@@ -1,15 +1,7 @@
-https://github.com/qa-guru/simple-rest-assured
+### Добавляем Allure listener:
 
-https://github.com/autotests-cloud/rest-api-tests
 
-https://github.com/rest-assured/rest-assured/wiki/usage - дока и использование
-
-https://jsonlint.com/ - распарсить json
-
-https://reqres.in/ - брать примеры для тренировки
-
-https://github.com/svasenkov/some_tests 
-
-Добавляем Allure listener
+1. Прописываем зависимости в файл build.gradle
+2. В запрос теста включаем `````.filter(new AllureRestAssured())`````
 
 ![img.png](img.png)
