@@ -21,6 +21,7 @@ public class BookStoreTests {
     @Test
     void allLogsTest() {
         given()
+                .filter(customLogFilter().withCustomTemplates())
                 .log().all()
                 .get("https://demoqa.com/BookStore/v1/Books")
                 .then()
@@ -31,6 +32,7 @@ public class BookStoreTests {
     @Test
     void withSomeLogsTest() {
         given()
+                .filter(customLogFilter().withCustomTemplates())
                 .log().uri()
                 .log().body()
                 .get("https://demoqa.com/BookStore/v1/Books")

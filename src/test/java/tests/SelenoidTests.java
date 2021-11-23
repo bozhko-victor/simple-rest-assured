@@ -11,18 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SelenoidTests {
 
-    //make request to https://selenoid.autotests.cloud/status
-    //total: 20
-
-//    @Test
-//    void checkTotal20() {
-//        //полный синтаксис:
-//        given() //дано
-//                .when() //когда
-//                .then(); //тогда
-//    }
-
-    @Test
     void checkTotal20() {
         given()
                 .when()
